@@ -50,7 +50,7 @@ pipeline {
                 usernamePassword(credentialsId: 'DOCKER', passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')]) {
                     sh label: 'Docker login', script: 'docker $DEVTLS login -u "$DOCKER_USER" -p "$DOCKER_PASS"'
                     sh label: 'Image Pull', script: 'docker $DEVTLS pull -q j6wdev/rel:demo'
-                    sh label: 'Deploy Image', script: 'docker $DEVTLS service create service_demo j6wdev/rel:demo'
+                    sh label: 'Deploy Image', script: 'docker $DEVTLS service create --name service_demo j6wdev/rel:demo'
                     sh label: 'Get Containers', script: 'docker $DEVTLS ps | grep service_demo'
                 }
             }
