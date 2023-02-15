@@ -43,6 +43,18 @@ pipeline {
             }
         }
 
+        stage('Deploy') {
+            steps {
+                withCredentials([
+                string(credentialsId: 'DEPLOY_TOKEN', variable: 'DEV-TLS'), 
+                usernamePassword(credentialsId: 'DOCKER', passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')]) {
+                    sh label: 'Docker login', script: 'docker $DEV-TLS login -u "$DOCKER_USER" -p "$DOCKER_PASS"'
+                    sh label: 'Image Pull', script: 'docker $DEV-TLS pull -q j6wdev/rel:demo'
+                    sh label: 'Deploy Image', script: 'docker $DEV-TLS service create service_demo j6wdev/rel:demo'
+                    sh label: 'Get Containers', script: 'docker $DEV-TLS ps | grep service_demo'
+                }
+            }
+        }
 
     }
 
