@@ -42,6 +42,13 @@ pipeline {
             }
         }
 
+        stage('Push Image to dockerhub') {
+            steps {
+                script {
+                    sh encoding: 'UTF-8', label: 'Verify Files', script: 'docker push j6wdev/rel:demo'
+                }
+            }
+        }
 
     }
 
