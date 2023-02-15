@@ -37,7 +37,7 @@ pipeline {
             steps {
                 script {
                     sh encoding: 'UTF-8', label: 'Pull base Build Image', returnStdout: false, script: 'docker pull bauson/com:ubiphp81'
-                    sh encoding: 'UTF-8', label: 'Build Image', returnStdout: false, script: 'docker build . -t j6wdev/rel:demo'
+                    sh encoding: 'UTF-8', label: 'Build Image', returnStdout: false, script: 'docker build . -t j6wdev/rel:demo --no-cache'
                     sh encoding: 'UTF-8', label: 'Push Image to Dockerhub', script: 'docker push j6wdev/rel:demo'
                 }
             }
