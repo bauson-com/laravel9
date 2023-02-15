@@ -25,9 +25,6 @@ pipeline {
                 }
             }
         }
-    }
-
-    stages {
         stage('Verification') {
             steps {
                 script {
@@ -36,6 +33,7 @@ pipeline {
             }
         }
     }
+
     
     post {
 
