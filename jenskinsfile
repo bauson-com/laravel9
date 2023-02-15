@@ -28,7 +28,7 @@ pipeline {
         stage('Verification') {
             steps {
                 script {
-                    sh encoding: 'UTF-8', label: 'Verify Files', returnStdout: true, script: 'pwd && ls -lah'
+                    sh encoding: 'UTF-8', label: 'Verify Files', returnStdout: false, script: 'pwd && ls -lah'
                 }
             }
         }
