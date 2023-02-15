@@ -32,6 +32,16 @@ pipeline {
                 }
             }
         }
+
+        stage('Build Image') {
+            steps {
+                script {
+                    sh encoding: 'UTF-8', label: 'Verify Files', returnStdout: false, script: 'docker pull bauson/com:ubiphp81'
+                }
+            }
+        }
+
+
     }
 
     
