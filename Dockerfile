@@ -15,7 +15,8 @@ RUN sed -i 's/#DocumentRoot/DocumentRoot/g' /etc/httpd/conf/httpd.conf && \
     echo "<?php phpinfo(); ?>" > index.php
 
 COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
+RUN chmod +x /entrypoint.sh && cat /entrypoint.sh
+
 
 COPY . .
 RUN composer install
