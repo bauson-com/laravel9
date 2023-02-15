@@ -21,10 +21,7 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 script {
-                    checkout changelog: false, scm: [
-                        $class: 'GitSCM', branches: [[name: "/master" ]], 
-                        extensions: [], userRemoteConfigs: [[credentialsId: 'GITLAB_TOKEN', 
-                        url: 'https://github.com/bauson-com/laravel9.git]]]
+                    checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/bauson-com/laravel9']]])
                 }
             }
         }
