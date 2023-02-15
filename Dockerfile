@@ -17,7 +17,6 @@ RUN sed -i 's/#DocumentRoot/DocumentRoot/g' /etc/httpd/conf/httpd.conf && \
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh && cat /entrypoint.sh
 
-
 COPY . .
 RUN composer install
 RUN chmod 777 storage -R 

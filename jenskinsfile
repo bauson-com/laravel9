@@ -49,9 +49,9 @@ pipeline {
                 string(credentialsId: 'DEPLOY_TOKEN', variable: 'DEVTLS'), 
                 usernamePassword(credentialsId: 'DOCKER', passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')]) {
                     sh label: 'Docker login', script: 'docker $DEVTLS login -u "$DOCKER_USER" -p "$DOCKER_PASS"'
-                    sh label: 'Image Pull', script: 'docker $DEVTLS pull -q j6wdev/rel:demo'
+                    sh label: 'Image Pull', script: 'docker $DEVTLS pull j6wdev/rel:demo'
                     //sh label: 'Deploy Image', script: 'docker $DEVTLS service create --name service_demo j6wdev/rel:demo' // Initial deploy for devops
-                    sh label: 'Deploy Image', script: 'docker $DEVTLS service update -q --force --update-parallelism 1 --update-delay 10s service_demo'
+                    sh label: 'Deploy Image', script: 'docker $DEVTLS service update --force --update-parallelism 1 --update-delay 10s service_demo'
                     sh label: 'Get Containers', script: 'docker $DEVTLS ps | grep service_demo'
                 }
             }
