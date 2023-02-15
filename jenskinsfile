@@ -1,0 +1,48 @@
+def info(str) {
+    echo "\033[1;33m[Info]  "+str+"\033[0m"
+}
+
+def error(str) {
+    echo "\033[1;31m[Error]  "+str+"\033[0m"
+}
+
+def success(str) {
+    echo "\033[1;32m[Success]  "+str+"\033[0m"
+}
+
+
+pipeline {
+    agent any
+    options {
+        ansiColor('xterm')
+    }
+
+    stages {
+        stage('Checkout Code') {
+            steps {
+                script {
+                    checkout changelog: false, scm: [
+                        $class: 'GitSCM', branches: [[name: "/master" ]], 
+                        extensions: [], userRemoteConfigs: [[credentialsId: 'GITLAB_TOKEN', 
+                        url: 'https://github.com/bauson-com/laravel9.git]]]
+                }
+            }
+        }
+    }
+    
+    post {
+        success {
+            sh label: 'success Message', script: '/var/jenkins_home/telegram.sh "DEMO PROJECT HAVE BEEN DEPLOYED. :-) https://demo.dev.j6w.work"'
+        }
+        failure {
+            sh label: 'failure Message', script: '/var/jenkins_home/telegram.sh "Failure to deploy PROJECT DEMO. :-("'
+
+        }
+        unstable {
+            sh label: 'unstable Message', script: '/var/jenkins_home/telegram.sh "Unstable build for DEMO."'
+        }
+        cleanup {
+            deleteDir()
+        }
+    }
+}
